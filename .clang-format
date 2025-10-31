@@ -1,0 +1,15 @@
+BasedOnStyle: Mozilla
+IndentWidth: 4
+
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: true
+
+AllowShortCaseExpressionOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortEnumsOnASingleLine: true
+BinPackArguments: true
+BinPackParameters: OnePerLine
+SortIncludes: false
