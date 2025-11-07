@@ -6,8 +6,7 @@
 
 class AngleRad; // Предварительное объявление
 
-class AngleDeg
-{
+class AngleDeg {
   private:
     double deg;
 
@@ -15,27 +14,26 @@ class AngleDeg
     explicit AngleDeg(double degrees = 0.0);
     explicit AngleDeg(const AngleRad& rad_angle);
 
-    double getDeg() const { return deg; }
+    double getDeg() const {
+        return deg;
+    }
 
     AngleDeg operator+(const AngleDeg& other) const;
     AngleDeg operator-(const AngleDeg& other) const;
     AngleDeg operator-() const;
 
     template<typename T>
-    AngleDeg operator*(const T& value) const
-    {
+    AngleDeg operator*(const T& value) const {
         return AngleDeg(deg * static_cast<double>(value));
     }
 
     template<typename T>
-    AngleDeg operator/(const T& value) const
-    {
+    AngleDeg operator/(const T& value) const {
         return AngleDeg(deg / static_cast<double>(value));
     }
 };
 
-class AngleRad
-{
+class AngleRad {
   private:
     double rad;
 
@@ -43,50 +41,46 @@ class AngleRad
     explicit AngleRad(double radians = 0.0);
     explicit AngleRad(const AngleDeg& deg_angle);
 
-    double getRad() const { return rad; }
+    double getRad() const {
+        return rad;
+    }
 
     AngleRad operator+(const AngleRad& other) const;
     AngleRad operator-(const AngleRad& other) const;
     AngleRad operator-() const;
 
     template<typename T>
-    AngleRad operator*(const T& value) const
-    {
+    AngleRad operator*(const T& value) const {
         return AngleRad(rad * static_cast<double>(value));
     }
 
     template<typename T>
-    AngleRad operator/(const T& value) const
-    {
+    AngleRad operator/(const T& value) const {
         return AngleRad(rad / static_cast<double>(value));
     }
 };
 
 template<typename T>
 AngleRad
-operator*(const T& value, const AngleRad& angle)
-{
+operator*(const T& value, const AngleRad& angle) {
     return AngleRad(static_cast<double>(value) * angle.getRad());
 }
 
 template<typename T>
 AngleDeg
-operator*(const T& value, const AngleDeg& angle)
-{
+operator*(const T& value, const AngleDeg& angle) {
     return AngleDeg(static_cast<double>(value) * angle.getDeg());
 }
 
 template<typename T>
 AngleRad
-operator/(const T& value, const AngleRad& angle)
-{
+operator/(const T& value, const AngleRad& angle) {
     return AngleRad(static_cast<double>(value) / angle.getRad());
 }
 
 template<typename T>
 AngleDeg
-operator/(const T& value, const AngleDeg& angle)
-{
+operator/(const T& value, const AngleDeg& angle) {
     return AngleDeg(static_cast<double>(value) / angle.getDeg());
 }
 

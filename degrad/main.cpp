@@ -3,8 +3,7 @@
 #include <iostream>
 
 int
-main(int argc, char* argv[])
-{
+main(int argc, char* argv[]) {
     AngleRad rad1(M_PI);
     AngleDeg deg1(180.0);
 
