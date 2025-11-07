@@ -13,3 +13,8 @@ AllowShortEnumsOnASingleLine: true
 BinPackArguments: true
 BinPackParameters: OnePerLine
 SortIncludes: false
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterFunction: false
