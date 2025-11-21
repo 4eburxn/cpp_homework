@@ -4,34 +4,32 @@
 
 int
 main(int argc, char* argv[]) {
-    AngleRad rad1(M_PI);
-    AngleDeg deg1(180.0);
+    degrees deg1(90.0);
+    radians rad1(3.14159);
 
-    // Явное преобразование между системами
-    AngleRad rad2 = AngleRad(deg1);
-    AngleDeg deg2 = AngleDeg(rad1);
+    degrees deg2 = deg1 + degrees(45.0);
+    radians rad2 = rad1 + radians(1.57);
 
-    std::cout << "rad1: " << rad1.getRad() << " rad" << std::endl;
-    std::cout << "deg1: " << deg1.getDeg() << " deg" << std::endl;
-    std::cout << "rad2 from deg1: " << rad2.getRad() << " rad" << std::endl;
-    std::cout << "deg2 from rad1: " << deg2.getDeg() << " deg" << std::endl;
+    radians converted_rad = deg1.to_radians();
+    degrees converted_deg = rad1.to_degrees();
 
-    // Арифметические операции
-    AngleRad rad_sum  = rad1 + rad2;
-    AngleDeg deg_diff = deg1 - deg2;
+    bool equal_deg     = (deg1 == degrees(90.0));
+    bool not_equal_rad = (rad1 != radians(2.0));
 
-    std::cout << "rad1 + rad2: " << rad_sum.getRad() << " rad" << std::endl;
-    std::cout << "deg1 - deg2: " << deg_diff.getDeg() << " deg" << std::endl;
+    degrees scaled_deg = deg1 * 2.0;
+    radians scaled_rad = rad1 / 2.0;
 
-    // Умножение и деление на числа разных типов
-    AngleRad rad_mult  = rad1 * 2.0f;  // float
-    AngleDeg deg_div   = deg1 / 3;     // int
-    AngleRad rad_mult2 = 2.5 * rad1;   // double
-    AngleDeg deg_div2  = 360.0 / deg1; // double
+    double deg_value = (double)deg1;
+    double rad_value = (double)rad1;
 
-    std::cout << "rad1 * 2.0f: " << rad_mult.getRad() << " rad" << std::endl;
-    std::cout << "deg1 / 3: " << deg_div.getDeg() << " deg" << std::endl;
-    std::cout << "2.5 * rad1: " << rad_mult2.getRad() << " rad" << std::endl;
-    std::cout << "360.0 / deg1: " << deg_div2.getDeg() << " deg" << std::endl;
+    std::cout << "deg1: " << deg_value << " degrees\n";
+    std::cout << "rad1: " << rad_value << " radians\n";
+    std::cout << "deg1 to radians: " << (double)converted_rad << "\n";
+    std::cout << "rad1 to degrees: " << (double)converted_deg << "\n";
+    std::cout << "deg1 == 90.0: " << equal_deg << "\n";
+    std::cout << "rad1 != 2.0: " << not_equal_rad << "\n";
+    std::cout << "deg1 * 2: " << (float)(scaled_deg) << "\n";
+    std::cout << "rad1 / 2: " << (float)(scaled_rad) << "\n";
+
     return 0;
 }

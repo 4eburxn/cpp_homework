@@ -1,87 +1,54 @@
 #ifndef __DEGRAD_H__
 #define __DEGRAD_H__
 
-#include <cmath>
-#include <cmath>
+class radians;
 
-class AngleRad; // Предварительное объявление
-
-class AngleDeg {
+class degrees {
   private:
-    double deg;
+    double val;
 
   public:
-    explicit AngleDeg(double degrees = 0.0);
-    explicit AngleDeg(const AngleRad& rad_angle);
-
-    double getDeg() const {
-        return deg;
+    degrees(double v = 0)
+      : val(v) {}
+    operator double() const {
+        return val;
     }
 
-    AngleDeg operator+(const AngleDeg& other) const;
-    AngleDeg operator-(const AngleDeg& other) const;
-    AngleDeg operator-() const;
+    degrees operator+(const degrees& d) const;
+    degrees operator-(const degrees& d) const;
+    degrees operator*(double f) const;
+    degrees operator/(double f) const;
 
-    template<typename T>
-    AngleDeg operator*(const T& value) const {
-        return AngleDeg(deg * static_cast<double>(value));
-    }
+    bool operator==(const degrees& d) const;
+    bool operator!=(const degrees& d) const;
+    bool operator<(const degrees& d) const;
+    bool operator>(const degrees& d) const;
 
-    template<typename T>
-    AngleDeg operator/(const T& value) const {
-        return AngleDeg(deg / static_cast<double>(value));
-    }
+    radians to_radians() const;
 };
 
-class AngleRad {
+class radians {
   private:
-    double rad;
+    double val;
 
   public:
-    explicit AngleRad(double radians = 0.0);
-    explicit AngleRad(const AngleDeg& deg_angle);
-
-    double getRad() const {
-        return rad;
+    radians(double v = 0)
+      : val(v) {}
+    operator double() const {
+        return val;
     }
 
-    AngleRad operator+(const AngleRad& other) const;
-    AngleRad operator-(const AngleRad& other) const;
-    AngleRad operator-() const;
+    radians operator+(const radians& r) const;
+    radians operator-(const radians& r) const;
+    radians operator*(double f) const;
+    radians operator/(double f) const;
 
-    template<typename T>
-    AngleRad operator*(const T& value) const {
-        return AngleRad(rad * static_cast<double>(value));
-    }
+    bool operator==(const radians& r) const;
+    bool operator!=(const radians& r) const;
+    bool operator<(const radians& r) const;
+    bool operator>(const radians& r) const;
 
-    template<typename T>
-    AngleRad operator/(const T& value) const {
-        return AngleRad(rad / static_cast<double>(value));
-    }
+    degrees to_degrees() const;
 };
-
-template<typename T>
-AngleRad
-operator*(const T& value, const AngleRad& angle) {
-    return AngleRad(static_cast<double>(value) * angle.getRad());
-}
-
-template<typename T>
-AngleDeg
-operator*(const T& value, const AngleDeg& angle) {
-    return AngleDeg(static_cast<double>(value) * angle.getDeg());
-}
-
-template<typename T>
-AngleRad
-operator/(const T& value, const AngleRad& angle) {
-    return AngleRad(static_cast<double>(value) / angle.getRad());
-}
-
-template<typename T>
-AngleDeg
-operator/(const T& value, const AngleDeg& angle) {
-    return AngleDeg(static_cast<double>(value) / angle.getDeg());
-}
 
 #endif // !__DEGRAD_H__
