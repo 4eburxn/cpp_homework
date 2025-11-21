@@ -11,6 +11,14 @@ radians::operator-(const radians& r) const {
     return radians(val - r.val);
 }
 radians
+radians::operator+(double f) const {
+    return radians(val + f);
+}
+radians
+radians::operator-(double f) const {
+    return radians(val - f);
+}
+radians
 radians::operator*(double f) const {
     return radians(val * f);
 }
@@ -48,6 +56,14 @@ degrees::operator+(const degrees& d) const {
 degrees
 degrees::operator-(const degrees& d) const {
     return degrees(val - d.val);
+}
+degrees
+degrees::operator+(double f) const {
+    return degrees(val + f);
+}
+degrees
+degrees::operator-(double f) const {
+    return degrees(val - f);
 }
 degrees
 degrees::operator*(double f) const {

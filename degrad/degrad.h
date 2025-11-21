@@ -16,6 +16,8 @@ class degrees {
 
     degrees operator+(const degrees& d) const;
     degrees operator-(const degrees& d) const;
+    degrees operator+(double f) const;
+    degrees operator-(double f) const;
     degrees operator*(double f) const;
     degrees operator/(double f) const;
 
@@ -40,6 +42,8 @@ class radians {
 
     radians operator+(const radians& r) const;
     radians operator-(const radians& r) const;
+    radians operator+(double f) const;
+    radians operator-(double f) const;
     radians operator*(double f) const;
     radians operator/(double f) const;
 

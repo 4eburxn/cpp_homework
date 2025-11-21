@@ -5,10 +5,15 @@
 int
 main(int argc, char* argv[]) {
     degrees deg1(90.0);
-    radians rad1(3.14159);
+    radians rad1(M_PI);
 
     degrees deg2 = deg1 + degrees(45.0);
-    radians rad2 = rad1 + radians(1.57);
+    degrees deg3 = deg1 - 45.;
+    radians rad2 = rad1 + radians(M_PI / 2);
+    radians rad3 = rad1 - M_PI / 2;
+    bool check   = ((double)deg2 == 135.) && ((double)deg3 == 45.) &&
+                 ((double)rad2 == M_PI + M_PI / 2) &&
+                 ((double)rad3 == M_PI - M_PI / 2);
 
     radians converted_rad = deg1.to_radians();
     degrees converted_deg = rad1.to_degrees();
@@ -22,6 +27,8 @@ main(int argc, char* argv[]) {
     double deg_value = (double)deg1;
     double rad_value = (double)rad1;
 
+    std::cout << "check with double is " << (check ? "correct" : "wrong")
+              << "\n";
     std::cout << "deg1: " << deg_value << " degrees\n";
     std::cout << "rad1: " << rad_value << " radians\n";
     std::cout << "deg1 to radians: " << (double)converted_rad << "\n";
