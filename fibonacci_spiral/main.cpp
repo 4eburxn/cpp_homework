@@ -24,13 +24,12 @@ next_line(Simple_window& win,
           int angle   = 0) {
     if (!iter)
         return;
-    float angleD = (M_PI / 3.24) * angle;
+    float angleD = (M_PI / 4) * angle;
     auto N       = lines.size();
     Point tmp_point{ p.x + (int)(SIZE * scale * std::sin(angleD)),
                      p.y - (int)(SIZE * scale * std::cos(angleD)) };
-    std::shared_ptr<Graph_lib::Line> newline(new Graph_lib::Line(p, tmp_point));
-    lines.emplace_back(newline);
-    win.attach(*newline);
+    lines.emplace_back(new Graph_lib::Line(p, tmp_point));
+    win.attach(*lines[N]);
     next_line(win, lines, tmp_point, iter - 1, scale / SCALING, angle + 1);
     next_line(win, lines, tmp_point, iter - 1, scale / SCALING, angle - 1);
 }
