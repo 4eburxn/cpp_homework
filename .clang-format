@@ -1,20 +1,20 @@
-BasedOnStyle: Mozilla
-IndentWidth: 4
-
-AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments:
-  Enabled: true
-  AcrossEmptyLines: false
-  AcrossComments: true
-
-AllowShortCaseExpressionOnASingleLine: true
-AllowShortCaseLabelsOnASingleLine: true
-AllowShortEnumsOnASingleLine: true
-BinPackArguments: true
-BinPackParameters: OnePerLine
-SortIncludes: false
-AllowShortBlocksOnASingleLine: Empty
-AllowShortFunctionsOnASingleLine: Empty
-BreakBeforeBraces: Custom
-BraceWrapping:
-  AfterFunction: false
+# BasedOnStyle: GNU
+# IndentWidth: 4
+#
+# AlignAfterOpenBracket: Align
+# AlignConsecutiveAssignments:
+#   Enabled: true
+#   AcrossEmptyLines: false
+#   AcrossComments: true
+#
+# AllowShortCaseExpressionOnASingleLine: true
+# AllowShortCaseLabelsOnASingleLine: true
+# AllowShortEnumsOnASingleLine: true
+# BinPackArguments: true
+# BinPackParameters: OnePerLine
+# SortIncludes: false
+# AllowShortBlocksOnASingleLine: Empty
+# AllowShortFunctionsOnASingleLine: Empty
+# BreakBeforeBraces: Custom
+# BraceWrapping:
+#   AfterFunction: false
