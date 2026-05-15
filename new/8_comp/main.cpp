@@ -1,11 +1,11 @@
 #include <iostream>
 #include <limits>
 #include <map>
+#include <memory>
 #include <string>
 
 class Expression {
 public:
-  int refCount = 0;
   virtual void print() const = 0;
   virtual double
   calculate(const std::map<std::string, double> &context) const = 0;
@@ -37,19 +37,12 @@ public:
 
 class BinaryOperation : public Expression {
 protected:
-  Expression *left, *right;
+  std::shared_ptr<Expression> left, right;
 
 public:
-  BinaryOperation(Expression *l, Expression *r) : left(l), right(r) {
-    left->refCount++;
-    right->refCount++;
-  }
-  virtual ~BinaryOperation() {
-    if (--left->refCount <= 0)
-      delete left;
-    if (--right->refCount <= 0)
-      delete right;
-  }
+  BinaryOperation(std::shared_ptr<Expression> l, std::shared_ptr<Expression> r)
+      : left(l), right(r) {}
+  virtual ~BinaryOperation() {}
 };
 
 class Addition : public BinaryOperation {
@@ -85,45 +78,34 @@ public:
 };
 
 class ExpressionFactory {
-  std::map<double, Constant *> constants;
-  std::map<std::string, Variable *> variables;
+  std::map<double, std::shared_ptr<Constant>> constants;
+  std::map<std::string, std::shared_ptr<Variable>> variables;
 
 public:
   ExpressionFactory() {
     for (int i = -5; i <= 256; ++i) {
-      constants[static_cast<double>(i)] = new Constant(i);
-      constants[static_cast<double>(i)]->refCount =
-          std::numeric_limits<int>::max();
+      constants[static_cast<double>(i)] = std::make_shared<Constant>(i);
     }
   }
 
-  Constant *createConstant(double v) {
+  std::shared_ptr<Constant> createConstant(double v) {
     if (constants.find(v) == constants.end()) {
-      constants[v] = new Constant(v);
-      constants[v]->refCount++;
+      constants[v] = std::make_shared<Constant>(v);
     }
     return constants[v];
   }
 
-  Variable *createVariable(const std::string &name) {
+  std::shared_ptr<Variable> createVariable(const std::string &name) {
     if (variables.find(name) == variables.end()) {
-      variables[name] = new Variable(name);
-      variables[name]->refCount++;
+      variables[name] = std::make_shared<Variable>(name);
     }
     return variables[name];
   }
 
-  ~ExpressionFactory() {
-    for (auto const &[val, ptr] : constants) {
-      if (ptr->refCount >= 1000000)
-        delete ptr;
-    }
-    for (auto const &[name, ptr] : variables)
-      delete ptr;
-  }
+  ~ExpressionFactory() {}
 };
 
-void run_test(const std::string &title, Expression *expr,
+void run_test(const std::string &title, std::shared_ptr<Expression> expr,
               std::map<std::string, double> &ctx) {
   std::cout << "--- Test: " << title << " ---\n";
   expr->print();
@@ -142,18 +124,19 @@ int main() {
 
   // Тест 2: Использование Flyweight (x * x + x)
   // Переменная "x" — это один и тот же объект в памяти
-  Variable *x = factory.createVariable("x");
-  Addition *t2 = new Addition(new Multiplication(x, x), x);
+  std::shared_ptr<Variable> x = factory.createVariable("x");
+  std::shared_ptr<Addition> t2 =
+      std::make_shared<Addition>(std::make_shared<Multiplication>(x, x), x);
   run_test("Reuse Variable (x*x + x)", t2, context);
 
   // Тест 3: Сложное выражение (x + y) * (z - 5)
   // Константа 5 берется из заранее созданного пула
-  Addition *sum_xy =
-      new Addition(factory.createVariable("x"), factory.createVariable("y"));
+  std::shared_ptr<Addition> sum_xy = std::make_shared<Addition>(
+      factory.createVariable("x"), factory.createVariable("y"));
   // Для простоты используем Addition как суррогат вычитания (z + -5)
   Addition *diff_z5 =
       new Addition(factory.createVariable("z"), factory.createConstant(-5));
-  Multiplication *t3 = new Multiplication(sum_xy, diff_z5);
+  std::shared_ptr<> t3 = std::make_shared<Multiplication>(sum_xy, diff_z5);
   run_test("Complex Expression (x+y)*(z-5)", t3, context);
 
   // Очистка

@@ -14,6 +14,7 @@ private:
 public:
   template <class T> void AddValue(T val) {
     std::get<IndexOf_v<T, internallist>>(vals) = val;
+    inicialized[IndexOf_v<T, internallist>] = true;
   }
 
   template <class T> T GetValue() {

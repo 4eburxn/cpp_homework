@@ -14,6 +14,8 @@ public:
   inline static size_t max_size = 10;
 
 private:
+  Log() = default;
+  ~Log() = default; //
   inline static Log *first_instance = nullptr;
   inline static std::deque<std::pair<LOG_LEVEL, std::string>> msgs = {};
 
