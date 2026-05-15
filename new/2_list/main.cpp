@@ -9,7 +9,7 @@ static_assert(Length<MyList> == 3);
 // Тест At
 static_assert(std::is_same_v<At_t<0, MyList>, int>);
 static_assert(std::is_same_v<At_t<1, MyList>, double>);
-// static_assert(std::is_same_v<At_t<5, MyList>, int>); // Ошибка компиляции!
+// static_assert(std::is_same_v<At_t<5, MyList>, int>); // ошибка компиляции
 
 // Тест Contains
 static_assert(Contains_v<double, MyList> == true);
